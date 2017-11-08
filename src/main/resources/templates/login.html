@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
+<script type="text/javascript" th:inline="javascript">
+
+$(document).ready(function(){
+	$("#toRegister").click(function(){
+		if(checkRegister()){			
+			var data={};
+			data.username =$("#r_username").val();
+			data.password =$("#r_password").val();
+			data.role =$("#r_role").val();
+			var url="/register";
+			$.post(url,data,function(data){
+				if(data.result){				
+					alert("注册成功");
+					window.location.href = "/login";
+				}else{
+					alert("用户名已存在");
+					return;
+				}
+			})
+		}
+	});
+});
+
+$(document).on('click','#toLogin',function(){
+	$("#r_form").css("display","none");
+	$("#l_form").removeAttr("style");	
+})
+$(document).on('click','#toRegisterChange',function(){
+	$("#l_form").css("display","none");
+	$("#r_form").removeAttr("style");
+})
+
+/* $("#toLogin").click(function(){
+	$("#r_form").css("display","none");
+	$("#l_form").removeAttr("style");		
+});
+$("#toRegisterChange").click(function(){
+	$("#l_form").css("display","none");
+	$("#r_form").removeAttr("style");
+}); */
+
+
+function checkLogin(){
+	
+	if($("#l_username").val() == null || $("#l_username").val() == ""){
+		$("#error").html("用户名不能为空");
+		return false;
+	}
+	if($("#l_password").val() == null || $("#l_password").val() == ""){
+		$("#error").html("密码不能为空");
+		return false;
+	}
+	return true;
+}
+
+function checkRegister(){
+	
+	if($("#r_username").val() == null || $("#r_username").val() == ""){
+		$("#error").html("用户名不能为空");
+		return false;
+	}
+	if($("#r_password").val() == null || $("#r_password").val() == ""){
+		$("#error").html("密码不能为空");
+		return false;
+	}
+	return true;
+}
+
+</script>
+
+</head>
+<body>
+<div th:if="${param.error}">
+
+    Invalid username and password.
+
+</div>
+
+<span id="error" style="color:#f33;margin-left:9%;"></span>
+	<a href="#" id="toLogin">Login</a>||<a href="#" id="toRegisterChange">Register</a>
+	<form id="l_form" th:action="@{/login}" method="post" onsubmit="return checkLogin()">
+		Name : <input type="text" id="l_username" name="username"/>	
+		Password : <input type="password" id="l_password" name="password"/>	
+		Submit : <input type="submit" value="登录"/>	
+	</form>
+	<!-- <hr /> -->
+	<form id="r_form" method="post" style="display:none">
+		Name : <input type="text" id="r_username" name="username"/>	
+		Password : <input type="password" id="r_password" name="password"/>	
+		Role : <select  id="r_role" name="role">
+			   		<option name="admin">ADMIN</option>
+			   		<option name="people">PEOPLE</option>
+			   		<option name="seven">SEVEN</option>
+			   </select>	
+		Submit : <input type="button" id="toRegister" value="注册"/>
+	</form>
+</body>
+</html>

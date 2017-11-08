@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+<script type="text/javascript" language="javascript" src="js/jquery.js">
+</script>
+<script type="text/javascript">
+		$(document).ready(function(){	
+			$("#personAdd").click(function(){
+				
+				/* var data = {};
+				data.name= $("#name").val();
+				data.gender = $("#gender").val();
+				console.log(data);
+				console.log($('#personForm').serialize()); */
+				$.post('/seven/person/add',$('#personForm').serialize(),function(data){
+					console.log(data);
+					
+					var personList = "";  
+					var i = ""
+                    $.each(data, function (k, v) {  
+                    	personList += "<tr>"
+                        $.each(v, function (kk, vv) {  
+                        	if(kk == "id"){
+                        		 i = vv;
+                        	}
+                        	personList += "<td>"+vv+"</td>";
+                        });  
+                        personList += '<td><input type="button" id="delete'+i+'" name="'+i+'"  class="delete" value="delete" /></td></tr>';  
+                    });  
+                    $("#personList").html(
+                    		'<table border="1"><tr><td>id</td><td>name</td><td>sex</td><td>delete</td></tr>'+
+                    		personList+
+                    		"</table>"
+                    );  
+					
+				});
+			});
+		});
+		
+		$(document).on("click", ".delete", function() {
+			
+			var data={};
+			data.id =$(this).attr("name");
+			
+			$.post('/seven/person/delete',data,function(data){
+				
+				var personList = "";  
+				var i = ""
+                $.each(data, function (k, v) {  
+                	personList += "<tr>"
+                    $.each(v, function (kk, vv) {  
+                    	if(kk == "id"){
+                    		 i = vv;
+                    	}
+                    	personList += "<td>"+vv+"</td>";
+                    });  
+                	personList += '<td><input type="button" id="delete'+i+'" name="'+i+'"  class="delete" value="delete" /></td></tr>';  
+                });  
+                $("#personList").html(
+                		'<table border="1"><tr><td>id</td><td>name</td><td>sex</td><td>delete</td></tr>'+
+                		personList+
+                		"</table>"
+                ); 
+				
+			});
+			
+		});
+</script>
+</head>
+<body>
+	<form id="personForm" method="POST">
+		Name :  <input type="text" name="name" id="name" />
+		Sex :	<input type="text" name="gender" id="gender" />
+		 		<input type="button" name="submit" id="personAdd" value="submit" />
+	</form>
+	<br />
+	<div id="personList"></div>
+	<br />
+	<p th:text="'Hello！, ' + ${name} + '!'" >3333</p>
+	<br />
+	<span th:text="'Welcome to our application, ' + ${name} + '!'" />
+	<br />
+	<span th:text="|Welcome to our application|" />
+	<br />
+	
+</body>
+</html>

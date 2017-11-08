@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="js/jqPaginator.js"></script>
+<link type="text/css" rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/css/bootstrap.min.css"/>
+
+<script type="text/javascript" th:inline="javascript">
+	var if_firstime = true;  
+	var pageIndex = Number("[[${page.pageno}]]");
+	var totalPage = Number("[[${page.totalpage}]]");
+	var pageSize = Number("[[${page.pagesize}]]");
+	var count=Number("[[${page.totalcount}]]");
+	/* console.log(pageIndex);
+	console.log(totalPage);
+	console.log(pageSize); */
+    $.jqPaginator('#pagination1', {
+      	totalPages: totalPage,
+       /*  totalCounts: count,
+        pageSize:10, */
+        visiblePages: 5,
+        currentPage: pageIndex,
+        onPageChange: function (num) {
+        	if(if_firstime){  
+                if_firstime = false;  
+            }else if(!if_firstime){  
+            	var url="seven/person/personPage";
+            		var data={};
+            		data.pageno=num;
+            		console.log(data.pageno);
+	          	   $.post(url,data,function(page){
+	          		   $("#personList").html(page);
+	          	   });  
+            } 
+           
+        }
+    });
+</script>
+</head>
+<body>
+	
+	<div id="personData">
+		<table border="1" th:if="${not #lists.isEmpty(personList)}">
+			<tr >
+				<td>id</td>
+				<td>name</td>
+				<td>sex</td>
+				<td sec:authorize="hasAuthority('ADMIN')">delete</td>
+			</tr>
+			<tr th:each="person,index : ${personList}">
+				<td th:text="${person.id}"></td>
+				<td th:text="${person.name}"></td>
+				<td th:text="${person.gender}"></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><input type="button" th:id="'delete'+${person.id}" th:name="${person.id}"  class="delete" value="delete" /></td>
+			</tr>
+			<tr>
+		        <td id= "xxx" colspan="4" class="text-center pagination">
+		        	<ul id="pagination1"></ul>
+		        </td>
+		    </tr>			
+		</table>
+		<hr />
+		<div sec:authorize="hasAuthority('PEOPLE')">test</div>
+	<div sec:authorize="hasAuthority('ADMIN')">admin</div>
+	<div sec:authorize="hasAuthority('SEVEN')">seven</div>
+		<!-- <br />
+		<div th:text="'每页显示'+${page.pagesize}"></div>
+		<div th:text="'当前页数'+${page.pageno}"></div>
+		<div th:text="'起始行'+${page.startrow}"></div>
+		<div th:text="'总页数'+${page.totalpage}"></div>
+		<div th:text="'总条数'+${page.totalcount}"></div> -->
+	</div>
+</body>
+</html>

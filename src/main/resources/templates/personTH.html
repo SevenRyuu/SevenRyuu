@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+<script type="text/javascript" language="javascript" src="js/jquery.js">
+</script>
+<script type="text/javascript">
+		$(document).ready(function(){	
+			$("#personAddTH").click(function(){
+				$.post('/seven/person/addTH',$('#personForm').serialize(),function(data){
+					$("#personList").html(data);
+					
+				});
+			});
+		});
+		
+		$(document).on("click", ".delete", function() {
+			var data={};
+			data.id =$(this).attr("name");
+			$.post('/seven/person/deleteTH',data,function(data){
+				$("#personList").html(data);
+			});
+			
+		});
+</script>
+</head>
+<body>
+	<form id="personForm" method="POST">
+		Name :  <input type="text" name="name" id="name" />
+		Sex :	<input type="text" name="gender" id="gender" />
+		 		<input type="button" name="submit" id="personAddTH" value="submitTH" />
+	</form>
+	<br />
+	<div id="personList"></div>
+	
+</body>
+</html>

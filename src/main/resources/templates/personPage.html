@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+<script type="text/javascript" language="javascript" src="js/jquery.js">
+</script>
+<script type="text/javascript" >
+
+		$(document).ready(function(){	
+			$("#personAddPage").click(function(){
+				$.post('/seven/person/addPage',$('#personForm').serialize(),function(data){
+ 		 			 $("#personList").html(data);
+					
+				});
+			});
+		});
+		
+		$(document).on("click", ".delete", function() {
+			var data={};
+			data.id =$(this).attr("name");
+			data.pageno = $("#pagination1 .active").attr("jp-data");
+			$.post('/seven/person/deletePage',data,function(data){
+				$("#personList").html(data);
+			});
+			
+		});
+</script>
+</head>
+<body>
+	<form th:action="@{/logout}" method="post">
+        <input type="submit" value="登出"/>
+    </form>
+	<hr />
+	<form id="personForm" method="POST">
+		Name :  <input type="text" name="name" id="name" />
+		Sex :	<input type="text" name="gender" id="gender" />
+				<input type="hidden" name="pageno" id="pageno" value="1" />
+		 		<input type="button" name="submit" id="personAddPage" value="submitPage" />
+	</form>
+	<br />
+	<div id="personList">
+		<div th:include="personData :: #personData"></div>
+	</div>	
+</body>
+</html>
