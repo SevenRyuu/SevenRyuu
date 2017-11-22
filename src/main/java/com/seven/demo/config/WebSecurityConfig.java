@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
             .formLogin()
                 //指定登录页是"/login"
                 .loginPage("/login")
-                .defaultSuccessUrl("/home")//登录成功后默认跳转到"/home"
+                .defaultSuccessUrl("/seven/note")//登录成功后默认跳转到"/home"
                 .permitAll()
                 .and()
             .logout()
@@ -51,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
     @Override
     public void configure(WebSecurity web) throws Exception {
         //解决静态资源被拦截的问题
-        web.ignoring().antMatchers("/js/**");
+        web.ignoring().antMatchers("/js/**","/css/**","/img/**");
     }
 
     @Override

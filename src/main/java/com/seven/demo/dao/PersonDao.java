@@ -8,7 +8,7 @@ import com.seven.demo.model.Page;
 import com.seven.demo.model.Person;
 
 
-@Repository
+
 public interface PersonDao {
 	
 	 void addPerson(String name, String gender);

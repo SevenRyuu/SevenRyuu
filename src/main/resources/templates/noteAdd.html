@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title id="title" sec:authentication="name"></title>
+
+<link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css"/>
+<link type="text/css" rel="stylesheet" href="../css/style.css"/>
+
+<script type="text/javascript"  src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+$(document).ready(function(){
+	var name = $("#title").text();
+	$("#note_name").val(name);
+	
+	var currentDate = new Date();
+	//$("#note_date").text(currentDate.toLocaleDateString());
+	$("#note_date").text(currentDate.toLocaleString());
+})
+</script>
+</head>
+<body class="pagePicture">
+	<div class="header">
+		<div class="container ">
+			<nav class="navbar navbar-inverse">
+				<div class="navbar-collapse">
+	                <ul class="nav navbar-nav">
+	                    <li class="active"><a href="#">Home</a></li>
+	                    <li><a href="#">Page One</a></li>
+	                    <li><a href="#">Page Two</a></li>
+	                </ul>
+	                <ul class="nav navbar-nav pull-right">
+					    <li><li><a href="/logout">Logout</a></li></li>
+	                </ul>
+	            </div>
+			</nav>		
+		</div>
+	</div>
+	<div class="container">
+		<div id="content" class="row-fluid">
+			<div class="row">
+		        <div class="col-md-offset-1 col-md-6">
+		            <p id="note_date"></p>
+		            <form id="note_form" th:action="@{/seven/note/add}" method="post">
+						<textarea id="note_content" name="noteContent" class="note-content"></textarea>
+						<input type="hidden" id="note_name" name="username" />
+						<br/>
+						<input type="submit" class="btn btn-default" value="done" />
+					</form>
+		        </div>	
+			</div>			
+	    </div>
+	</div>
+	<hr class="footer-line" />
+	<div class="footer">
+		<div class="container">
+			<center>Bootstrap页脚</center>
+		</div>
+	</div>
+</body>
+</html>

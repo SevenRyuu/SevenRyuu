@@ -4,9 +4,10 @@
 <head>
 <meta charset="UTF-8" />
 <title>Insert title here</title>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
 <script type="text/javascript" language="javascript" src="js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" language="javascript" src="js/jqPaginator.js"></script>
-<link type="text/css" rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/css/bootstrap.min.css"/>
 
 <script type="text/javascript" th:inline="javascript">
 	var if_firstime = true;  
@@ -57,8 +58,8 @@
 				<td sec:authorize="hasAuthority('ADMIN')"><input type="button" th:id="'delete'+${person.id}" th:name="${person.id}"  class="delete" value="delete" /></td>
 			</tr>
 			<tr>
-		        <td id= "xxx" colspan="4" class="text-center pagination">
-		        	<ul id="pagination1"></ul>
+		        <td id= "xxx" colspan="4" >
+		        	<ul id="pagination1" class="text-center pagination"></ul>
 		        </td>
 		    </tr>			
 		</table>

@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <title>Insert title here</title>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+<link type="text/css" rel="stylesheet" href="css/style.css"/>
+
 <script type="text/javascript" language="javascript" src="js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" th:inline="javascript">
 
 $(document).ready(function(){
@@ -26,25 +30,6 @@ $(document).ready(function(){
 		}
 	});
 });
-
-$(document).on('click','#toLogin',function(){
-	$("#r_form").css("display","none");
-	$("#l_form").removeAttr("style");	
-})
-$(document).on('click','#toRegisterChange',function(){
-	$("#l_form").css("display","none");
-	$("#r_form").removeAttr("style");
-})
-
-/* $("#toLogin").click(function(){
-	$("#r_form").css("display","none");
-	$("#l_form").removeAttr("style");		
-});
-$("#toRegisterChange").click(function(){
-	$("#l_form").css("display","none");
-	$("#r_form").removeAttr("style");
-}); */
-
 
 function checkLogin(){
 	
@@ -73,32 +58,127 @@ function checkRegister(){
 }
 
 </script>
-
+<style>
+	
+</style>
 </head>
-<body>
-<div th:if="${param.error}">
-
-    Invalid username and password.
-
-</div>
-
-<span id="error" style="color:#f33;margin-left:9%;"></span>
-	<a href="#" id="toLogin">Login</a>||<a href="#" id="toRegisterChange">Register</a>
-	<form id="l_form" th:action="@{/login}" method="post" onsubmit="return checkLogin()">
-		Name : <input type="text" id="l_username" name="username"/>	
-		Password : <input type="password" id="l_password" name="password"/>	
-		Submit : <input type="submit" value="登录"/>	
-	</form>
-	<!-- <hr /> -->
-	<form id="r_form" method="post" style="display:none">
-		Name : <input type="text" id="r_username" name="username"/>	
-		Password : <input type="password" id="r_password" name="password"/>	
-		Role : <select  id="r_role" name="role">
-			   		<option name="admin">ADMIN</option>
-			   		<option name="people">PEOPLE</option>
-			   		<option name="seven">SEVEN</option>
-			   </select>	
-		Submit : <input type="button" id="toRegister" value="注册"/>
-	</form>
+<body class="pagePicture">
+	<div class="header">
+		<div class="container ">
+			<nav class="navbar navbar-inverse">
+				<div class="navbar-collapse">
+	                <ul class="nav navbar-nav">
+	                    <li class="active"><a href="#">Home</a></li>
+	                    <li><a href="#">Page One</a></li>
+	                    <li><a href="#">Page Two</a></li>
+	                </ul>
+	                <ul class="nav navbar-nav pull-right">
+	                    <li><a data-toggle="modal" data-target="#login" class="pointer">Login</a></li>
+	                    <li><a data-toggle="modal" data-target="#register" class="pointer">Register</a></li>
+	                </ul>
+	            </div>
+			</nav>
+			<div th:if="${param.error}">
+			
+			    Invalid username and password.
+			
+			</div>	
+			<span id="error" style="color:#f33;margin-left:9%;"></span>
+			
+		</div>
+	</div>
+	
+	<div class="container">
+		<div id="content" class="row-fluid">
+			<div class="row">
+		        <div class="col-md-offset-1 col-md-6">
+		            <h2>My Room</h2>
+		            <p>
+		            	　　This is my room. Near the window there is a desk. I often do my homework at it. You can see some books, some flowers in a vase, a ruler and a pen. On the wall near the desk there is a picture of a cat. There is a clock above the end of my bed. I usually put my shoe under my bed. Of course there is a chair in front of the desk. I sit there and I can see the trees and roads outside.
+		            </p>
+		        </div>
+		        <div class="col-md-1 vertical-line">
+		        
+		        </div>
+		        <div class="col-md-3 ">
+		            <h2>Sidebar</h2>  
+		        </div>		
+			</div>			
+	    </div>
+	</div>
+	<hr class="footer-line" />
+	<div class="footer">
+		<div class="container">
+			<center>Bootstrap页脚</center>
+		</div>
+	</div>
+	<!-- Login（Modal） -->
+	<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="loginLabel">
+						Login
+					</h4>
+				</div>
+				<form id="l_form" th:action="@{/login}" method="post" onsubmit="return checkLogin()">
+					<div class="modal-body">
+						<div class="form-group">
+						<label>Name :</label>
+						<input type="text" id="l_username" name="username" class="form-control" placeholder="请输入您的账号" />
+						</div>
+						<div class="form-group">
+						<label>Password :</label>
+						<input type="password" id="l_password" name="password" class="form-control" placeholder="请输入您的密码" />
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">登录</button>
+					</div>				
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Register（Modal） -->
+	<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="registerLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="registerLabel">
+						Register
+					</h4>
+				</div>
+				<form id="r_form" method="post">
+					<div class="modal-body">
+						<div class="form-group">
+						<label>Name :</label>
+						<input  type="text" id="r_username" name="username" class="form-control" placeholder="请输入您的账号" />
+						</div>
+						<div class="form-group">
+						<label>Password :</label>
+						<input type="password" id="r_password" name="password" class="form-control" placeholder="请输入您的密码" />
+						</div>
+						<div class="form-group">
+						<label>Role :</label>
+						<select  id="r_role" name="role">
+					   		<option name="admin">ADMIN</option>
+					   		<option name="people">PEOPLE</option>
+					   		<option name="seven">SEVEN</option>
+					    </select>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="toRegister" class="btn btn-primary">注册</button>
+					</div>				
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

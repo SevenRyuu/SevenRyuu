@@ -1,0 +1,26 @@
+.pagePicture{
+		background-image:url(/img/ciya.jpg);
+		opacity:1;
+		background-repeat: no-repeat;
+	    background-size: cover;
+	    background-attachment: fixed;
+}
+.pointer{
+	    cursor: pointer;
+}
+.vertical-line{
+	    border-left: 4px solid #A0A0A0;
+    	height: 500px;
+}	
+.footer-line{
+	background: #8FA5AB;
+    clear: both;
+    float: none;
+    width: 80%;
+    height: 5px;
+    border: none;
+}
+.note-content{
+	width:70%;
+	height:30rem;
+}
