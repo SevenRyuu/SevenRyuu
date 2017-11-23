@@ -10,5 +10,5 @@ public interface NoteService {
 		
 		List<Note> findAll();
 		
-		List<String> getByUsername(String username);
+		List<Note> getByUsername(String username,String currentDate);
 }

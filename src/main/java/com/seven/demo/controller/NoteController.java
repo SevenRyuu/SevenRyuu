@@ -1,5 +1,7 @@
 package com.seven.demo.controller;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.seven.demo.model.Note;
 import com.seven.demo.service.NoteService;
 
 @RestController
@@ -32,9 +35,17 @@ public class NoteController {
 	}	
 	
 	@RequestMapping(value="/{username}/noteList", method={RequestMethod.GET,RequestMethod.POST})
-	public List<String> getNoteContent(@PathVariable("username")String username){
-			List<String> noteContent = noteService.getByUsername(username);
-			return noteContent;
+	public ModelAndView getNoteContent(@PathVariable("username")String username,Model model){
+			Calendar cal = Calendar.getInstance(); 
+			StringBuilder currentDate = new StringBuilder();
+			currentDate.append(cal.get(Calendar.YEAR));
+			currentDate.append("-");
+			currentDate.append(cal.get(Calendar.MONTH )+1);
+			currentDate.append("-");
+			currentDate.append(cal.get(Calendar.DAY_OF_MONTH));
+			List<Note> noteList = noteService.getByUsername(username,currentDate.toString());
+			model.addAttribute("noteList", noteList);
+			return new ModelAndView("noteList");
 		
 	}
 }

@@ -50,12 +50,12 @@ public class NoteDaoImpl implements NoteDao{
 	}
     
     @Override
-	public List<String> getByUsername(String username) {
+	public List<Note> getByUsername(String username,String currentDate) {
 		// TODO Auto-generated method stub
-		List<String> noteContent = new ArrayList<String>();
-		Query query = getSession().createQuery("select notecontent from Note as n where n.username=?");
+		Query query = getSession().createQuery("from Note as n where n.username=? and n.createDate like:param");
 		query.setParameter(0,username);
-		noteContent = query.list();
-		return noteContent;
+		query.setString("param",currentDate+"%");
+		List<Note> noteList = query.list();
+		return noteList;
 	}
 }

@@ -33,9 +33,9 @@ public class NoteServiceImpl implements NoteService{
 	
 	@Transactional
 	@Override
-	public List<String> getByUsername(String username) {
+	public List<Note> getByUsername(String username,String currentDate) {
 		// TODO Auto-generated method stub
-		List<String> noteContent = noteDao.getByUsername(username);
-		return noteContent;
+		List<Note> noteList = noteDao.getByUsername(username,currentDate);
+		return noteList;
 	}
 }
