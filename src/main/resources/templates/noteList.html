@@ -9,6 +9,13 @@
 
 <script type="text/javascript"  src="../../../js/jquery.js"></script>
 <script type="text/javascript" src="../../../js/bootstrap.min.js"></script>
+
+<script type="text/javascript" th:inline="javascript">
+$(document).ready(function(){
+	var time = $(".note_time").text();
+	$(".note_time").text(time.substring(11,16));
+});
+</script>
 </head>
 <body class="pagePicture">
 	<div class="header">
