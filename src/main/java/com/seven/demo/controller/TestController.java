@@ -25,7 +25,7 @@ public class TestController {
 	@RequestMapping("/login")
 	public ModelAndView login(){
 		
-		return new ModelAndView("login");
+		return new ModelAndView("home");
 	}
 	
 	@RequestMapping("/register")
@@ -37,6 +37,6 @@ public class TestController {
 	@RequestMapping("/home")
 	public ModelAndView hello(Model model){
 		//System.out.println("helloworld");
-		return new ModelAndView("personPage");
+		return new ModelAndView("home");
 	}
 }

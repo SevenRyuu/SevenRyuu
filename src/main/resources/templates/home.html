@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8" />
-<title>Insert title here</title>
+<title id="title" sec:authentication="name"></title>
 <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
 <link type="text/css" rel="stylesheet" href="css/style.css"/>
 
@@ -11,6 +12,10 @@
 <script type="text/javascript" th:inline="javascript">
 
 $(document).ready(function(){
+	var name = $("#title").text();
+	var myNoteUrl = "/seven/note/"+name+"/noteList";
+	$("#myNote").attr("href",myNoteUrl);
+	
 	$("#toRegister").click(function(){
 		if(checkRegister()){			
 			var data={};
@@ -68,13 +73,23 @@ function checkRegister(){
 			<nav class="navbar navbar-inverse">
 				<div class="navbar-collapse">
 	                <ul class="nav navbar-nav">
-	                    <li class="active"><a href="#">Home</a></li>
-	                    <li><a href="#">Page One</a></li>
+	                    <li class="active"><a href="/home">Home</a></li>
+	                    <li><a id="myNote" href="">My Note</a></li>
 	                    <li><a href="#">Page Two</a></li>
 	                </ul>
 	                <ul class="nav navbar-nav pull-right">
-	                    <li><a data-toggle="modal" data-target="#login" class="pointer">Login</a></li>
-	                    <li><a data-toggle="modal" data-target="#register" class="pointer">Register</a></li>
+	                    <li sec:authorize="isAuthenticated()">
+		               		<a href="/seven/note">Add Note</a>
+	                	</li>
+	                    <li sec:authorize="isAuthenticated()">
+		               		<a href="/logout">Logout</a>
+	                	</li>
+	                	<li sec:authorize="isAnonymous()">
+		               		<a data-toggle="modal" data-target="#login" class="pointer">Login</a>
+	                	</li>
+	                	<li sec:authorize="isAnonymous()">
+		               		<a data-toggle="modal" data-target="#register" class="pointer">Register</a>
+	                	</li>
 	                </ul>
 	            </div>
 			</nav>

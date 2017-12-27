@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
     	http.csrf().disable();
         //允许所有用户访问"/index"
         http.authorizeRequests()
-                .antMatchers("/index","/register").permitAll()
+                .antMatchers("/index","/register","/home").permitAll()
                 //其他地址的访问均需验证权限
                 .anyRequest().authenticated()
                 .and()
@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
                 .permitAll()
                 .and()
             .logout()
-                .logoutSuccessUrl("/login")//退出登录后的默认url是"/login"
+                .logoutSuccessUrl("/home")//退出登录后的默认url是"/login"
                 .permitAll();
 
     }
