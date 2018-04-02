@@ -8,12 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -32,8 +32,7 @@ public class User implements UserDetails{
 	
 	@Id
 	@Column(name="id")
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="increment", strategy = "increment")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
 	@Column(name="username")
